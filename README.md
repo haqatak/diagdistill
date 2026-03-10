@@ -30,7 +30,7 @@ We propose ​Diagonal Distillation, a new method for making high-quality video 
 ---
 
 
-https://spherelab.ai/diagdistill/new_demo.mp4
+<video src="https://spherelab.ai/diagdistill/new_demo.mp4" controls></video>
 
 
 ## Requirements
