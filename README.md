@@ -27,17 +27,10 @@
 ---
 
 We propose ​Diagonal Distillation, a new method for making high-quality video generation much faster. Current methods are either too slow or create videos with poor motion and errors over time.
-
-<p align="center">
-  <video src="./assets/new_demo.mp4" controls width="900">
-    Your browser does not support the video tag.
-  </video>
-</p>
-
 ---
 
 
-<!-- https://github.com/user-attachments/assets/7548c2db-fe03-4ba8-8dd3-52d2c6160739 -->
+https://spherelab.ai/diagdistill/new_demo.mp4
 
 
 ## Requirements
