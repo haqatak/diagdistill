@@ -21,16 +21,16 @@
     <sub><sup>4</sup>University of California, Merced</sub>
     <sub><sup>5</sup>The Chinese University of Hong Kong</sub>
   </p>
-  <h3 align="center"><a href="">Paper</a> | <a href="https://spherelab.ai/diagdistill">Website</a></h3>
+  <h3 align="center"><a href="https://arxiv.org/abs/2603.09488">Paper</a> | <a href="https://spherelab.ai/diagdistill">Website</a></h3>
 </p>
 
 ---
 
 We propose ​Diagonal Distillation, a new method for making high-quality video generation much faster. Current methods are either too slow or create videos with poor motion and errors over time.
+
 ---
 
 
-<video src="https://spherelab.ai/diagdistill/new_demo.mp4" controls></video>
 
 
 ## Requirements
