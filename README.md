@@ -32,7 +32,11 @@ We propose ​Diagonal Distillation, a new method for making high-quality video 
 
 
 
-https://github.com/user-attachments/assets/3821e3f7-24d9-418e-b721-a443401ac4d7
+
+
+https://github.com/user-attachments/assets/97536e89-b784-45ec-980c-e1318cfda185
+
+
 
 
 
