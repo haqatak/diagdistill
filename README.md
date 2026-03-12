@@ -103,7 +103,7 @@ bash train_init.sh
 Our training run uses 600 iterations and completes in under 2 hours using 64 H100 GPUs. By implementing gradient accumulation, it should be possible to reproduce the results in less than 16 hours using 8 H100 GPUs.
 
 ## Acknowledgements
-This codebase is built on top of the open-source implementation of [LongLive](https://github.com/NVlabs/LongLive) by [Tianwei Yin](https://tianweiy.github.io/) and the [Wan2.1](https://github.com/Wan-Video/Wan2.1) repo.
+This codebase is built on top of the open-source implementation of [LongLive](https://github.com/NVlabs/LongLive) by [yukang2017](https://github.com/yukang2017) and the [Wan2.1](https://github.com/Wan-Video/Wan2.1) repo.
 
 ## Citation
 If you find this codebase useful for your research, please kindly cite our paper:
