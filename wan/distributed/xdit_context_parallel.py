@@ -169,12 +169,12 @@ def usp_attn_forward(self,
     q = rope_apply(q, grid_sizes, freqs)
     k = rope_apply(k, grid_sizes, freqs)
 
-    # TODO: We should use unpaded q,k,v for attention.
-    # k_lens = seq_lens // get_sequence_parallel_world_size()
-    # if k_lens is not None:
-    #     q = torch.cat([u[:l] for u, l in zip(q, k_lens)]).unsqueeze(0)
-    #     k = torch.cat([u[:l] for u, l in zip(k, k_lens)]).unsqueeze(0)
-    #     v = torch.cat([u[:l] for u, l in zip(v, k_lens)]).unsqueeze(0)
+    # We should use unpaded q,k,v for attention.
+    k_lens = seq_lens // get_sequence_parallel_world_size()
+    if k_lens is not None:
+        q = torch.cat([u[:l] for u, l in zip(q, k_lens)], dim=0).unsqueeze(0)
+        k = torch.cat([u[:l] for u, l in zip(k, k_lens)], dim=0).unsqueeze(0)
+        v = torch.cat([u[:l] for u, l in zip(v, k_lens)], dim=0).unsqueeze(0)
 
     x = xFuserLongContextAttention()(
         None,
@@ -183,8 +183,19 @@ def usp_attn_forward(self,
         value=half(v),
         window_size=self.window_size)
 
-    # TODO: padding after attention.
-    # x = torch.cat([x, x.new_zeros(b, s - x.size(1), n, d)], dim=1)
+    # padding after attention.
+    if k_lens is not None:
+        out_tensors = []
+        curr = 0
+        for i in range(b):
+            length = k_lens[i]
+            x_i = x[0, curr:curr + length]
+            curr += length
+            if x_i.size(0) < s:
+                x_i = torch.cat(
+                    [x_i, x_i.new_zeros(s - x_i.size(0), n, d)], dim=0)
+            out_tensors.append(x_i)
+        x = torch.stack(out_tensors)
 
     # output
     x = x.flatten(2)
