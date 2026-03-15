@@ -77,7 +77,7 @@ torch.set_grad_enabled(False)
 pipeline = InteractiveCausalInferencePipeline(config, device=device)
 
 if config.generator_ckpt:
-    state_dict = torch.load(config.generator_ckpt, map_location="cpu")
+    state_dict = torch.load(config.generator_ckpt, map_location="cpu", weights_only=True)
     raw_gen_state_dict = state_dict["generator_ema" if config.use_ema else "generator"]
 
     if config.use_ema:
@@ -118,7 +118,7 @@ if getattr(config, "adapter", None) and configure_lora_for_model is not None:
     if lora_ckpt_path:
         if local_rank == 0:
             print(f"Loading LoRA checkpoint from {lora_ckpt_path}")
-        lora_checkpoint = torch.load(lora_ckpt_path, map_location="cpu")
+        lora_checkpoint = torch.load(lora_ckpt_path, map_location="cpu", weights_only=True)
         # Support both formats: containing the `generator_lora` key or a raw LoRA state dict
         if isinstance(lora_checkpoint, dict) and "generator_lora" in lora_checkpoint:
             peft.set_peft_model_state_dict(pipeline.generator.model, lora_checkpoint["generator_lora"])  # type: ignore
