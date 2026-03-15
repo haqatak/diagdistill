@@ -11,6 +11,7 @@ use_diagonal_denoising: true
 enable_torch_compile: true
 torch_compile_mode: max-autotune-no-cudagraphs
 use_taehv: true
+use_fp8: true
 taehv_checkpoint_path: checkpoints/taew2_1.pth
 num_frame_per_block: 3
 model_name: Wan2.1-T2V-1.3B

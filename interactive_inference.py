@@ -12,6 +12,8 @@ import os
 from typing import List
 
 import torch
+from torchao.quantization import quantize_, float8_weight_only, float8_dynamic_activation_float8_weight
+import torch
 import torch.distributed as dist
 from omegaconf import OmegaConf
 from tqdm import tqdm
@@ -135,6 +137,11 @@ if getattr(config, "adapter", None) and configure_lora_for_model is not None:
 # Move pipeline to appropriate dtype and device
 print("dtype", pipeline.generator.model.dtype)
 pipeline = pipeline.to(dtype=torch.bfloat16)
+
+if getattr(config, "use_fp8", False):
+    if local_rank == 0:
+        print("Applying FP8 quantization to generator...")
+    quantize_(pipeline.generator, float8_dynamic_activation_float8_weight())
 if low_memory:
     DynamicSwapInstaller.install_model(pipeline.text_encoder, device=device)
 pipeline.generator.to(device=device)
