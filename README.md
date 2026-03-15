@@ -68,7 +68,7 @@ We tested this repo on the following setup:
 Other hardware setup could also work but hasn't been tested.
 
 ## Installation
-Create a conda environment and install dependencies:
+Create a conda environment and install dependencies. Note: The CUDA Toolkit (specifically the development headers, e.g., `cuda.h`) must be installed in your environment or appropriate environment variables (like `CUDA_HOME` or `CPATH`) must be set for `pycuda` compilation to succeed. For example, you can install the CUDA toolkit system-wide with `sudo apt-get install nvidia-cuda-toolkit` or via conda with `conda install -c nvidia cuda-toolkit`.
 ```
 conda create -n dia python=3.10 -y
 conda activate dia
