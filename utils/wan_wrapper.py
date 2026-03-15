@@ -25,7 +25,7 @@ class WanTextEncoder(torch.nn.Module):
         ).eval().requires_grad_(False)
         self.text_encoder.load_state_dict(
             torch.load("wan_models/Wan2.1-T2V-1.3B/models_t5_umt5-xxl-enc-bf16.pth",
-                       map_location='cpu', weights_only=False)
+                       map_location='cpu', weights_only=True)
         )
         
         # Move text encoder to GPU if available
