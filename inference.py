@@ -10,7 +10,6 @@ from datetime import datetime
 import time
 from omegaconf import OmegaConf
 from tqdm import tqdm
-from torchvision import transforms
 from torchvision.io import write_video
 from einops import rearrange
 import torch
@@ -24,7 +23,7 @@ from pipeline import (
 from utils.dataset import TextDataset
 from utils.misc import set_seed
 
-from utils.memory import gpu, get_cuda_free_memory_gb, DynamicSwapInstaller, log_gpu_memory
+from utils.memory import get_cuda_free_memory_gb, DynamicSwapInstaller
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--config_path", type=str, help="Path to the config file")
