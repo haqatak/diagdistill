@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 import argparse
 import torch
+from torchao.quantization import quantize_, float8_weight_only, float8_dynamic_activation_float8_weight
 import os
 import re
 import urllib.request
@@ -12,6 +13,7 @@ from tqdm import tqdm
 from torchvision import transforms
 from torchvision.io import write_video
 from einops import rearrange
+import torch
 import torch.distributed as dist
 from torch.utils.data import DataLoader, SequentialSampler
 from torch.utils.data.distributed import DistributedSampler
@@ -166,6 +168,11 @@ if getattr(config, "adapter", None) and configure_lora_for_model is not None:
 
 # Move pipeline to appropriate dtype and device
 pipeline = pipeline.to(dtype=torch.bfloat16)
+
+if getattr(config, "use_fp8", False):
+    if local_rank == 0:
+        print("Applying FP8 quantization to generator...")
+    quantize_(pipeline.generator, float8_dynamic_activation_float8_weight())
 if low_memory:
     DynamicSwapInstaller.install_model(pipeline.text_encoder, device=device)
 pipeline.generator.to(device=device)
