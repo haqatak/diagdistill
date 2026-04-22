@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 import argparse
 import torch
-from torchao.quantization import quantize_, float8_weight_only, float8_dynamic_activation_float8_weight
+from torchao.quantization import quantize_, Float8WeightOnlyConfig, Float8DynamicActivationFloat8WeightConfig
 import os
 import re
 import urllib.request
@@ -171,7 +171,7 @@ pipeline = pipeline.to(dtype=torch.bfloat16)
 if getattr(config, "use_fp8", False):
     if local_rank == 0:
         print("Applying FP8 quantization to generator...")
-    quantize_(pipeline.generator, float8_dynamic_activation_float8_weight())
+    quantize_(pipeline.generator, Float8DynamicActivationFloat8WeightConfig())
 if low_memory:
     DynamicSwapInstaller.install_model(pipeline.text_encoder, device=device)
 pipeline.generator.to(device=device)

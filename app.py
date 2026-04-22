@@ -16,7 +16,7 @@ from pipeline import CausalInferencePipeline
 from utils.memory import gpu, get_cuda_free_memory_gb, DynamicSwapInstaller
 from utils.misc import set_seed
 from utils.lora_utils import configure_lora_for_model
-from torchao.quantization import quantize_, float8_dynamic_activation_float8_weight
+from torchao.quantization import quantize_, Float8DynamicActivationFloat8WeightConfig
 
 class AppConfig:
     def __init__(self, config_path):
@@ -108,7 +108,7 @@ class AppConfig:
 
         if getattr(self.config, "use_fp8", False):
             print("Applying FP8 quantization to generator...")
-            quantize_(self.pipeline.generator, float8_dynamic_activation_float8_weight())
+            quantize_(self.pipeline.generator, Float8DynamicActivationFloat8WeightConfig())
 
         if self.low_memory:
             DynamicSwapInstaller.install_model(self.pipeline.text_encoder, device=self.device)
